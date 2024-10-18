@@ -28,6 +28,9 @@
 <div id="shareMenu">
     <div class="shareOption" id="whatsapp">WhatsApp</div>
     <div class="shareOption" id="viber">Viber</div>
+    <div class="shareOption" id="telegram">Telegram</div>
+    <div class="shareOption" id="vk">ВКонтакте</div>
+    <div class="shareOption" id="ok">Одноклассники</div>
     <div class="shareOption" id="copyLink">Скопировать ссылку</div>
 </div>
 
@@ -44,13 +47,31 @@
     document.getElementById("whatsapp").addEventListener("click", () => {
         const shareUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(shareText)} ${encodeURIComponent(url)}`;
         window.open(shareUrl, '_blank');
-        shareMenu.style.display = "none"; // Скрываем меню
+        shareMenu.style.display = "none";
     });
 
     document.getElementById("viber").addEventListener("click", () => {
         const shareUrl = `viber://forward?text=${encodeURIComponent(shareText)} ${encodeURIComponent(url)}`;
         window.open(shareUrl, '_blank');
-        shareMenu.style.display = "none"; // Скрываем меню
+        shareMenu.style.display = "none";
+    });
+
+    document.getElementById("telegram").addEventListener("click", () => {
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(shareText)}`;
+        window.open(shareUrl, '_blank');
+        shareMenu.style.display = "none";
+    });
+
+    document.getElementById("vk").addEventListener("click", () => {
+        const shareUrl = `https://vk.com/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(shareText)}`;
+        window.open(shareUrl, '_blank');
+        shareMenu.style.display = "none";
+    });
+
+    document.getElementById("ok").addEventListener("click", () => {
+        const shareUrl = `https://odnoklassniki.ru/dk?st.cmd=addShare&st.text=${encodeURIComponent(shareText)}&st.url=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank');
+        shareMenu.style.display = "none";
     });
 
     document.getElementById("copyLink").addEventListener("click", () => {
@@ -58,7 +79,7 @@
             .then(() => {
                 alert("Ссылка скопирована!");
             });
-        shareMenu.style.display = "none"; // Скрываем меню
+        shareMenu.style.display = "none";
     });
 
     // Закрытие меню при клике вне его
