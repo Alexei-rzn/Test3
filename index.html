@@ -3,52 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поделиться страницей</title>
+    <title>2048</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f2f2f2;
+        /* Стили для меню */
+        #shareMenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
+        .shareOption {
+            margin: 5px 0;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<h1>Поделитесь этой страницей!</h1>
-<button onclick="share()">Поделиться</button>
+<button id="shareButton">Поделиться</button>
+<div id="shareMenu">
+    <div class="shareOption" id="whatsapp">WhatsApp</div>
+    <div class="shareOption" id="viber">Viber</div>
+    <div class="shareOption" id="copyLink">Скопировать ссылку</div>
+</div>
 
 <script>
-    const url = encodeURIComponent(window.location.href); // получаем текущий URL
+    const shareButton = document.getElementById("shareButton");
+    const shareMenu = document.getElementById("shareMenu");
+    const shareText = "Я сыграл в 2048! Попробуйте и вы!";
+    const url = window.location.href;
 
-    function share() {
-        const platform = prompt('Выберите соцсеть для дележа:\n1. ВКонтакте\n2. WhatsApp\n3. Viber\n4. Telegram');
+    shareButton.addEventListener("click", () => {
+        shareMenu.style.display = shareMenu.style.display === "block" ? "none" : "block";
+    });
 
-        switch (platform) {
-            case '1':
-                window.open(`https://vk.com/share.php?url=${url}`, '_blank');
-                break;
-            case '2':
-                window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
-                break;
-            case '3':
-                window.open(`viber://forward?text=${url}`, '_blank');
-                break;
-            case '4':
-                window.open(`https://t.me/share/url?url=${url}`, '_blank');
-                break;
-            default:
-                alert('Неправильный выбор. Пожалуйста, попробуйте снова.');
+    document.getElementById("whatsapp").addEventListener("click", () => {
+        const shareUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(shareText)} ${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank');
+        shareMenu.style.display = "none"; // Скрываем меню
+    });
+
+    document.getElementById("viber").addEventListener("click", () => {
+        const shareUrl = `viber://forward?text=${encodeURIComponent(shareText)} ${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank');
+        shareMenu.style.display = "none"; // Скрываем меню
+    });
+
+    document.getElementById("copyLink").addEventListener("click", () => {
+        navigator.clipboard.writeText(`${shareText} ${url}`)
+            .then(() => {
+                alert("Ссылка скопирована!");
+            });
+        shareMenu.style.display = "none"; // Скрываем меню
+    });
+
+    // Закрытие меню при клике вне его
+    window.addEventListener("click", (event) => {
+        if (!shareButton.contains(event.target) && !shareMenu.contains(event.target)) {
+            shareMenu.style.display = "none";
         }
-    }
+    });
 </script>
 
 </body>
