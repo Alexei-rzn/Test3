@@ -3,41 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таблица услуг</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <title>Мой JS проект</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Услуги и цены</h1>
-    <table id="services-table" border="1">
-        <thead>
-            <tr>
-                <th>Услуга</th>
-                <th>Стоимость</th>
-                <th>Категория</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
-    <script>
-        const url = 'https://raw.githubusercontent.com/Alexei-rzn/Test3/main/services_prices.csv'; // Замените на вашу ссылку
+    <header>
+        <h1>Добро пожаловать в мой проект на JavaScript</h1>
+    </header>
 
-        Papa.parse(url, {
-            download: true,
-            header: true,
-            complete: function(results) {
-                const tableBody = document.querySelector('#services-table tbody');
-                results.data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${row['Услуга']}</td><td>${row['Стоимость']}</td><td>${row['Категория']}</td>`;
-                    tableBody.appendChild(tr);
-                });
-            },
-            error: function(error) {
-                console.error("Ошибка при загрузке данных: ", error);
-            }
-        });
-    </script>
+    <main>
+        <div id="app">
+            <h2>Возможности применения JavaScript</h2>
+            <ul id="feature-list">
+                <!-- Список возможностей будет динамически заполнен с помощью JavaScript -->
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Мой проект на JavaScript</p>
+    </footer>
+
+    <script src="js/scripts.js"></script>
 </body>
 </html>
