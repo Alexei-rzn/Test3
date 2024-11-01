@@ -3,28 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой JS проект</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Расчет материала (искусственный камень)</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Расчет использованного материала</h1>
+        <form id="calcForm">
+            <label for="length">Размер изделия (длина, м):</label>
+            <input type="number" id="length" required>
 
-    <header>
-        <h1>Добро пожаловать в мой проект на JavaScript</h1>
-    </header>
+            <label for="width">Размер изделия (ширина, м):</label>
+            <input type="number" id="width" required>
 
-    <main>
-        <div id="app">
-            <h2>Возможности применения JavaScript</h2>
-            <ul id="feature-list">
-                <!-- Список возможностей будет динамически заполнен с помощью JavaScript -->
-            </ul>
+            <label for="quantity">Количество изделий:</label>
+            <input type="number" id="quantity" required>
+
+            <label for="gluing">Возможность склеивания:</label>
+            <select id="gluing">
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>
+
+            <label for="jointWidth">Ширина стыка (см):</label>
+            <input type="number" id="jointWidth" required>
+
+            <label for="sheetLength">Размер листа (длина, м):</label>
+            <input type="number" id="sheetLength" required>
+
+            <label for="sheetWidth">Размер листа (ширина, м):</label>
+            <input type="number" id="sheetWidth" required>
+
+            <button type="submit">Рассчитать</button>
+        </form>
+
+        <div id="results" class="results hidden">
+            <h2>Результаты расчетов:</h2>
+            <p id="areaProduct"></p>
+            <p id="totalArea"></p>
+            <p id="sheetArea"></p>
+            <p id="wasteLoss"></p>
+            <p id="requiredArea"></p>
+            <p id="sheetsNeeded"></p>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Мой проект на JavaScript</p>
-    </footer>
-
-    <script src="js/scripts.js"></script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
