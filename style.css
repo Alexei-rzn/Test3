@@ -1,70 +1,55 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-h1, h2 {
-    color: #333;
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    margin-bottom: 30px;
-}
-
-.hidden {
-    display: none;
+h1 {
+    text-align: center;
 }
 
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 15px 0 5px;
 }
 
 input, select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    padding: 10px 15px;
-    background-color: #007bff;
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
     color: white;
     border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4cae4c;
 }
 
-#results {
-    border: 1px solid #ced4da;
-    padding: 15px;
-    background-color: #f8f9fa;
+.results {
+    margin-top: 20px;
 }
 
-#layout {
-    margin-top: 30px;
-}
-
-#sheetsLayout {
-    display: flex;
-    flex-wrap: wrap;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    position: relative;
-}
-
-.sheet {
-    position: relative;
-    border: 1px solid #6c757d;
-    margin: 5px;
-    background-color: #e9ecef;
-}
-
-.product {
-    position: absolute;
-    background-color: rgba(52, 152, 219, 0.8);
-    border: 1px solid #2980b9;
+.hidden {
+    display: none;
 }
