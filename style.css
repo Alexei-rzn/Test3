@@ -1,76 +1,70 @@
-* {
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #e9ecef;
+    font-family: Arial, sans-serif;
+    margin: 20px;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+h1, h2 {
+    color: #333;
 }
 
-h1 {
-    text-align: center;
-    color: #343a40;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input, select, button {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    transition: border 0.3s ease;
-}
-
-input:focus, select:focus {
-    border-color: #80bdff;
-    outline: none;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #218838;
+form {
+    margin-bottom: 30px;
 }
 
 .hidden {
     display: none;
 }
 
-#results {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    border: 1px solid #dee2e6;
+label {
+    display: block;
+    margin: 10px 0 5px;
 }
 
-#results p {
-    margin: 10px 0;
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#results {
+    border: 1px solid #ced4da;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+#layout {
+    margin-top: 30px;
+}
+
+#sheetsLayout {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    position: relative;
+}
+
+.sheet {
+    position: relative;
+    border: 1px solid #6c757d;
+    margin: 5px;
+    background-color: #e9ecef;
+}
+
+.product {
+    position: absolute;
+    background-color: rgba(52, 152, 219, 0.8);
+    border: 1px solid #2980b9;
 }
