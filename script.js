@@ -1,29 +1,47 @@
-document.getElementById('calcForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+document.getElementById('calculateBtn').addEventListener('click', function () {
+    // Получаем размеры листа
+    const sheetWidth = Number(document.getElementById('sheetWidth').value);
+    const sheetLength = Number(document.getElementById('sheetLength').value);
+    
+    // Получаем количество размерных кусков
+    const sizeCount = Number(document.getElementById('sizeCount').value);
+    
+    // Получаем размеры кусков
+    const sizes = [];
+    const sizeWidths = document.querySelectorAll('.sizeWidth');
+    const sizeLengths = document.querySelectorAll('.sizeLength');
+    
+    for (let i = 0; i < sizeCount; i++) {
+        const width = Number(sizeWidths[i].value);
+        const length = Number(sizeLengths[i].value);
+        sizes.push({ width, length });
+    }
 
-    const length = parseFloat(document.getElementById('length').value);
-    const width = parseFloat(document.getElementById('width').value);
-    const quantity = parseInt(document.getElementById('quantity').value);
-    const gluing = document.getElementById('gluing').value;
-    const jointWidth = parseFloat(document.getElementById('jointWidth').value) / 100; // переводим в метры
-    const sheetLength = parseFloat(document.getElementById('sheetLength').value);
-    const sheetWidth = parseFloat(document.getElementById('sheetWidth').value);
-    const leafFraction = parseFloat(document.getElementById('leafFraction').value);
+    // Логика расчета
+    const totalWidth = sizes.reduce((total, size) => total + size.width, 0);
+    const requiredSheets = Math.ceil(totalWidth / sheetWidth);
+    const totalLength = Math.max(...sizes.map(size => size.length));
 
-    const areaProduct = length * width;
-    const totalArea = areaProduct * quantity;
-    const sheetArea = sheetLength * sheetWidth * leafFraction; // Учитываем выбранную фракцию
-    const wasteLoss = (gluing === "Да" ? (quantity - 1) * jointWidth * length : 0); // Стыки считаем по длине
-    const requiredArea = totalArea + wasteLoss;
+    const excessWidth = (requiredSheets * sheetWidth) - totalWidth;
 
-    const sheetsNeeded = Math.ceil(requiredArea / sheetArea * 4) / 4; // Округляем до ближайшей 0.25
+    let results = `Необходимое количество листов: ${requiredSheets}<br>`;
+    results += `Остаток ширины: ${excessWidth} мм<br>`;
 
-    document.getElementById('areaProduct').innerText = `Площадь изделия (м²): ${areaProduct.toFixed(2)}`;
-    document.getElementById('totalArea').innerText = `Общая площадь (м²): ${totalArea.toFixed(2)}`;
-    document.getElementById('sheetArea').innerText = `Площадь листа (м², с учетом фракции): ${sheetArea.toFixed(2)}`;
-    document.getElementById('wasteLoss').innerText = `Потери из-за стыков (м²): ${wasteLoss.toFixed(2)}`;
-    document.getElementById('requiredArea').innerText = `Необходимая площадь (м²): ${requiredArea.toFixed(2)}`;
-    document.getElementById('sheetsNeeded').innerText = `Количество листов (с запасом, округленно до 0.25): ${sheetsNeeded.toFixed(2)}`;
+    if (totalLength > sheetLength) {
+        results += `Внимание! Длина кусков превышает длину листа.<br>`;
+    }
 
-    document.getElementById('results').classList.remove('hidden');
+    if (excessWidth > 500) {
+        results += `Перерасход: ${excessWidth} мм (писать отдельно).<br>`;
+    } else {
+        results += `Перерасход: ${excessWidth} мм (в рамках допустимого).<br>`;
+    }
+
+    // Добавить дополнительные условия, если глубина больше 750
+    const totalDepth = sizes.reduce((total, size) => total + size.length, 0);
+    if (totalDepth > 750) {
+        results += `Склейки: +1 за большую глубину.<br>`;
+    }
+
+    document.getElementById('results').innerHTML = results;
 });
