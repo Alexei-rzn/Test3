@@ -1,3 +1,51 @@
+// Функция для визуализации укладки
+function visualizeLayout(length, width, sheetLength, sheetWidth, quantity) {
+    const sheetsLayout = document.getElementById('sheetsLayout');
+    sheetsLayout.innerHTML = ''; // Очистить предыдущие данные
+
+    const sheetArea = sheetLength * sheetWidth;    
+    const areaProduct = length * width;
+
+    let totalSheets = Math.ceil(quantity * areaProduct / sheetArea); // Общее количество листов
+    let placedProducts = 0;
+
+    for (let sheetIndex = 0; sheetIndex < totalSheets; sheetIndex++) {
+        const sheetDiv = document.createElement('div');
+        sheetDiv.className = 'sheet';
+        sheetDiv.style.width = `${sheetLength * 100}px`;
+        sheetDiv.style.height = `${sheetWidth * 100}px`;
+        
+        let offsetX = 0;
+        let offsetY = 0;
+        
+        while (placedProducts < quantity) {
+            // Проверка, помещается ли изделие
+            if (offsetX + width <= sheetWidth && offsetY + length <= sheetLength) {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.style.width = `${width * 100}px`;
+                productDiv.style.height = `${length * 100}px`;
+                productDiv.style.left = `${offsetX * 100}px`;
+                productDiv.style.top = `${offsetY * 100}px`;
+
+                sheetDiv.appendChild(productDiv);
+                offsetX += width; // Перемещаемся по ширине
+                placedProducts++;
+
+                // Если не помещается, переходим на следующий уровень
+                if (offsetX >= sheetWidth) {
+                    offsetX = 0;
+                    offsetY += length; // Сдвигаемся вниз по высоте
+                }
+            } else {
+                break; // Выход, если изделие не помещается
+            }
+        }
+
+        sheetsLayout.appendChild(sheetDiv);
+    }
+}
+
 document.getElementById('calcForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -5,30 +53,30 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     const width = parseFloat(document.getElementById('width').value);
     const quantity = parseInt(document.getElementById('quantity').value);
     const gluing = document.getElementById('gluing').value;
-    const jointWidth = parseFloat(document.getElementById('jointWidth').value) / 100; // переводим в метры
+    const jointWidth = parseFloat(document.getElementById('jointWidth').value) / 100; 
     const sheetLength = parseFloat(document.getElementById('sheetLength').value);
     const sheetWidth = parseFloat(document.getElementById('sheetWidth').value);
     const leafFraction = parseFloat(document.getElementById('leafFraction').value);
 
-    const areaProduct = length * width; // Площадь одного изделия
-    const totalArea = areaProduct * quantity; // Общая площадь для всех изделий
-    const sheetArea = sheetLength * sheetWidth * leafFraction; // Площадь листа с учетом фракции
-    const wasteLoss = (gluing === "Да" ? (quantity - 1) * jointWidth * length : 0); // Потери из-за стыков
-    const requiredArea = totalArea + wasteLoss; // Общая необходимая площадь
+    const areaProduct = length * width; 
+    const totalArea = areaProduct * quantity; 
+    const sheetArea = sheetLength * sheetWidth * leafFraction; 
+    const wasteLoss = (gluing === "Да" ? (quantity - 1) * jointWidth * length : 0); 
+    const requiredArea = totalArea + wasteLoss;
 
     let sheetsNeeded, neededSheetsDetails = "";
 
     if (gluing === "Да") {
-        const totalLength = length * quantity; // Общая длина изделий
-        sheetsNeeded = Math.ceil(totalLength / sheetLength); // Количество необходимых листов
-        const leftover = totalLength % sheetLength; // Остаток
+        const totalLength = length * quantity; 
+        sheetsNeeded = Math.ceil(totalLength / sheetLength); 
+        const leftover = totalLength % sheetLength; 
 
         neededSheetsDetails = `Необходимо целых листов: ${sheetsNeeded} (осталось: ${leftover.toFixed(3)} м)`;
         if (leftover > 0) {
             neededSheetsDetails += `. Можно использовать остаток для других изделий.`;
         }
     } else {
-        const totalLength = length * quantity; // Общая длина изделий
+        const totalLength = length * quantity; 
         let remainingLength = totalLength;
 
         while (remainingLength > 0) {
@@ -38,7 +86,7 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
                 remainingLength -= fullSheets * sheetLength;
             } else {
                 neededSheetsDetails += `Необходимо дополнительно: 1 лист ${sheetLength} м для ${remainingLength.toFixed(3)} м.\n`;
-                remainingLength = 0; // Завершаем цикл
+                remainingLength = 0; 
             }
         }
 
@@ -55,4 +103,8 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     document.getElementById('neededSheetsDetails').innerText = neededSheetsDetails;
 
     document.getElementById('results').classList.remove('hidden');
+
+    // Визуализация укладки
+    document.getElementById('layout').classList.remove('hidden');
+    visualizeLayout(length, width, sheetLength, sheetWidth, quantity);
 });
