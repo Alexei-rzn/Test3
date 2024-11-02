@@ -10,40 +10,35 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     const sheetWidth = parseFloat(document.getElementById('sheetWidth').value);
     const leafFraction = parseFloat(document.getElementById('leafFraction').value);
 
-    const areaProduct = length * width;
-    const totalArea = areaProduct * quantity;
-    const sheetArea = sheetLength * sheetWidth * leafFraction; // Учитываем выбранную фракцию
-    const wasteLoss = (gluing === "Да" ? (quantity - 1) * jointWidth * length : 0); // Стыки считаем по длине
-    const requiredArea = totalArea + wasteLoss;
+    const areaProduct = length * width; // Площадь одного изделия
+    const totalArea = areaProduct * quantity; // Общая площадь для всех изделий
+    const sheetArea = sheetLength * sheetWidth * leafFraction; // Площадь листа с учетом фракции
+    const wasteLoss = (gluing === "Да" ? (quantity - 1) * jointWidth * length : 0); // Потери из-за стыков
+    const requiredArea = totalArea + wasteLoss; // Общая необходимая площадь
 
     let sheetsNeeded, neededSheetsDetails = "";
 
     if (gluing === "Да") {
-        // При возможности склеивания
         const totalLength = length * quantity; // Общая длина изделий
-        sheetsNeeded = Math.ceil(totalLength / sheetLength);
+        sheetsNeeded = Math.ceil(totalLength / sheetLength); // Количество необходимых листов
         const leftover = totalLength % sheetLength; // Остаток
 
-        neededSheetsDetails = `Необходимо целых листов: ${sheetsNeeded} (осталось: ${leftover.toFixed(2)} м)`;
-
-        // Рассчитываем, сколько метров оставшихся можно использовать
+        neededSheetsDetails = `Необходимо целых листов: ${sheetsNeeded} (осталось: ${leftover.toFixed(3)} м)`;
         if (leftover > 0) {
             neededSheetsDetails += `. Можно использовать остаток для других изделий.`;
         }
     } else {
-        // Без возможности склеивания
         const totalLength = length * quantity; // Общая длина изделий
         let remainingLength = totalLength;
 
-        // Оптимизация для распорки листов
         while (remainingLength > 0) {
             const fullSheets = Math.floor(remainingLength / sheetLength);
             if (fullSheets > 0) {
                 neededSheetsDetails += `Необходимо целых листов: ${fullSheets} (длина каждого: ${sheetLength} м) \n`;
                 remainingLength -= fullSheets * sheetLength;
             } else {
-                neededSheetsDetails += `Необходимо дополнительно: 1 лист ${sheetLength} м для ${remainingLength.toFixed(2)} м.\n`;
-                remainingLength = 0; // Завершаем цикл, так как всё учтено
+                neededSheetsDetails += `Необходимо дополнительно: 1 лист ${sheetLength} м для ${remainingLength.toFixed(3)} м.\n`;
+                remainingLength = 0; // Завершаем цикл
             }
         }
 
@@ -51,11 +46,11 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     }
 
     // Обновляем результат на странице
-    document.getElementById('areaProduct').innerText = `Площадь изделия (м²): ${areaProduct.toFixed(2)}`;
-    document.getElementById('totalArea').innerText = `Общая площадь (м²): ${totalArea.toFixed(2)}`;
-    document.getElementById('sheetArea').innerText = `Площадь листа (м², с учетом фракции): ${sheetArea.toFixed(2)}`;
-    document.getElementById('wasteLoss').innerText = `Потери из-за стыков (м²): ${wasteLoss.toFixed(2)}`;
-    document.getElementById('requiredArea').innerText = `Необходимая площадь (м²): ${requiredArea.toFixed(2)}`;
+    document.getElementById('areaProduct').innerText = `Площадь изделия (м²): ${areaProduct.toFixed(3)}`;
+    document.getElementById('totalArea').innerText = `Общая площадь (м²): ${totalArea.toFixed(3)}`;
+    document.getElementById('sheetArea').innerText = `Площадь листа (м², с учетом фракции): ${sheetArea.toFixed(3)}`;
+    document.getElementById('wasteLoss').innerText = `Потери из-за стыков (м²): ${wasteLoss.toFixed(3)}`;
+    document.getElementById('requiredArea').innerText = `Необходимая площадь (м²): ${requiredArea.toFixed(3)}`;
     document.getElementById('sheetsNeeded').innerText = `Количество листов (с запасом, округленно до 0.25): ${sheetsNeeded.toFixed(2)}`;
     document.getElementById('neededSheetsDetails').innerText = neededSheetsDetails;
 
