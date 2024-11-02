@@ -7,11 +7,11 @@ body {
 
 .container {
     max-width: 600px;
-    margin: auto;
+    margin: 0 auto;
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -20,36 +20,47 @@ h1 {
 
 label {
     display: block;
-    margin: 15px 0 5px;
+    margin-top: 10px;
 }
 
-input, select {
-    width: 100%;
+input[type="number"] {
+    width: calc(100% - 20px);
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.sizeInput {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sizeInput input {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.sizeInput input:last-child {
+    margin-right: 0;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
+    background: #28a745;
+    color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
     cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background: #218838;
 }
 
 .results {
     margin-top: 20px;
-}
-
-.hidden {
-    display: none;
+    font-size: 1.2em;
 }
