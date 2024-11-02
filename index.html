@@ -3,62 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор закупки листов</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Визуализация укладки изделий</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Калькулятор закупки листов</h1>
-        <form id="calcForm">
-            <div class="form-group">
-                <label for="length">Длина изделия (м):</label>
-                <input type="number" id="length" step="0.001" required>
-            </div>
-            <div class="form-group">
-                <label for="width">Ширина изделия (м):</label>
-                <input type="number" id="width" step="0.001" required>
-            </div>
-            <div class="form-group">
-                <label for="quantity">Количество изделий:</label>
-                <input type="number" id="quantity" required min="1">
-            </div>
-            <div class="form-group">
-                <label for="gluing">Склеивание возможно?</label>
-                <select id="gluing">
-                    <option value="Да">Да</option>
-                    <option value="Нет">Нет</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="jointWidth">Ширина стыков (см):</label>
-                <input type="number" id="jointWidth" value="0" min="0" step="0.001">
-            </div>
-            <div class="form-group">
-                <label for="sheetLength">Длина листа (м):</label>
-                <input type="number" id="sheetLength" step="0.001" required>
-            </div>
-            <div class="form-group">
-                <label for="sheetWidth">Ширина листа (м):</label>
-                <input type="number" id="sheetWidth" step="0.001" required>
-            </div>
-            <div class="form-group">
-                <label for="leafFraction">Фракция листа (0-1):</label>
-                <input type="number" id="leafFraction" value="1" min="0" max="1" step="0.01">
-            </div>
-            <button type="submit">Рассчитать</button>
-        </form>
+    <h1>Калькулятор укладки листов</h1>
+    <form id="calcForm">
+        <label for="length">Длина изделия (м):</label>
+        <input type="number" id="length" required step="0.01" /><br />
+        
+        <label for="width">Ширина изделия (м):</label>
+        <input type="number" id="width" required step="0.01" /><br />
+        
+        <label for="quantity">Количество изделий:</label>
+        <input type="number" id="quantity" required step="1" /><br />
+        
+        <label for="gluing">Стыковка изделий? (Да/Нет):</label>
+        <select id="gluing">
+            <option value="Нет">Нет</option>
+            <option value="Да">Да</option>
+        </select><br />
+        
+        <label for="jointWidth">Ширина стыка (м):</label>
+        <input type="number" id="jointWidth" step="0.01" /><br />
+        
+        <label for="sheetLength">Длина листа (м):</label>
+        <input type="number" id="sheetLength" required step="0.01" /><br />
+        
+        <label for="sheetWidth">Ширина листа (м):</label>
+        <input type="number" id="sheetWidth" required step="0.01" /><br />
+        
+        <label for="leafFraction">Фракция листа (0-1):</label>
+        <input type="number" id="leafFraction" required step="0.01" min="0" max="1" /><br />
+        
+        <button type="submit">Рассчитать</button>
+    </form>
 
-        <div id="results" class="hidden">
-            <h2>Результаты расчета</h2>
-            <p id="areaProduct"></p>
-            <p id="totalArea"></p>
-            <p id="sheetArea"></p>
-            <p id="wasteLoss"></p>
-            <p id="requiredArea"></p>
-            <p id="sheetsNeeded"></p>
-            <p id="neededSheetsDetails"></p>
-        </div>
+    <div id="results" class="hidden">
+        <h2>Результаты</h2>
+        <p id="areaProduct"></p>
+        <p id="totalArea"></p>
+        <p id="sheetArea"></p>
+        <p id="wasteLoss"></p>
+        <p id="requiredArea"></p>
+        <p id="sheetsNeeded"></p>
+        <p id="neededSheetsDetails"></p>
     </div>
+
+    <div id="layout" class="hidden">
+        <h2>Визуализация укладки изделий</h2>
+        <div id="sheetsLayout"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
