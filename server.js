@@ -6,10 +6,10 @@ const port = 3000;
 
 // Настройки подключения к MySQL
 const db = mysql.createConnection({
-    host: 'localhost', // укажите ваш хост
-    user: 'your_username', // укажите ваше имя пользователя
-    password: 'your_password', // укажите ваш пароль
-    database: 'your_database' // укажите вашу БД
+    host: 's135.webhost1.ru:1535', // укажите ваш хост
+    user: 'test', // укажите ваше имя пользователя
+    password: '1234567890Test', // укажите ваш пароль
+    database: 'testexe' // укажите вашу БД
 });
 
 // Подключаемся к базе данных
